@@ -12,7 +12,7 @@ def print_received_messages(s):
     while s:
         ready = select.select([s], [], [], 1)
         if ready[0]:
-            print(s.recv(300).decode())
+            print(s.recv(400).decode())
 
 start_new_thread(print_received_messages,(s,))
 
@@ -21,7 +21,3 @@ while True:
     ready = select.select([], [s], [], 1)
     if ready[1]:
         s.sendall(z.encode())
-    if z == "exitclient":
-        s.close()
-        s = None
-        break
