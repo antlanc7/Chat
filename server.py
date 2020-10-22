@@ -18,6 +18,7 @@ clients = []
 
 def threaded_client(conn, addr):
     print('Il client ', addr, ' si è connesso')
+    conn.send("NAME".encode())
     nickname = conn.recv(256).decode("utf-8")
     welcome_message="Benvenuto "+nickname
     print(welcome_message)
@@ -30,8 +31,8 @@ def threaded_client(conn, addr):
             message = "[" + timestamp + "]" + nickname + " : " + data
             print(message)
             for (other_conn,_) in clients:
-                if conn!=other_conn:
-                    other_conn.send(message.encode())
+                #if conn!=other_conn:
+                other_conn.send(message.encode())
             time.sleep(0.1)
         except:
             break
