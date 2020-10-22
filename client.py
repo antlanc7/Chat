@@ -1,5 +1,4 @@
 import socket, select
-#sono fabio
 from _thread import start_new_thread
 s = socket.socket()
 
