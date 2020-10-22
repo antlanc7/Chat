@@ -161,7 +161,7 @@ class GUI:
         self.buttonMsg.place(relx = 0.77, 
                              rely = 0.008, 
                              relheight = 0.02,  
-                             relwidth = 0.22) 
+                             relwidth = 0.22)
           
         self.textCons.config(cursor = "arrow") 
           
