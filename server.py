@@ -27,7 +27,7 @@ def threaded_client(conn, addr):
     while True:
         try:
             data = conn.recv(256).decode("utf-8")
-            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            timestamp = datetime.datetime.now().strftime("%H:%M:%S")
             message = "[" + timestamp + "]" + nickname + " : " + data
             print(message)
             for (other_conn,_) in clients:
