@@ -5,6 +5,8 @@ s = socket.socket()
 ip="localhost"
 port = 3125
 s.connect((ip, port))
+username = input("Inserisci l'username con il quale verrai identificato: ")
+s.sendall(username.encode())
 
 def print_received_messages(s):
     while s:
@@ -13,6 +15,7 @@ def print_received_messages(s):
             print(s.recv(300).decode())
 
 start_new_thread(print_received_messages,(s,))
+
 while True:
     z = input()
     ready = select.select([], [s], [], 1)
