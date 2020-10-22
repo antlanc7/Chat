@@ -1,0 +1,7 @@
+#1 Inserire username al posto di mostrare ip
+#2 Timestamp dell'invio del messaggio
+#2 Log della chat
+
+
+
+# Interfaccia grafica 
