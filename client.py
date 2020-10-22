@@ -2,7 +2,7 @@ import socket, select
 from _thread import start_new_thread
 s = socket.socket()
 
-ip=""
+ip="localhost"
 port = 3125
 s.connect((ip, port))
 
