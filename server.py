@@ -1,4 +1,4 @@
-import socket,time,sys
+import socket,time,sys,datetime
 from _thread import *
 
 server = ""
@@ -18,25 +18,26 @@ clients = []
 
 def threaded_client(conn, addr):
     print('Il client ', addr, ' si è connesso')
-    reply = ""
+    conn.send("NAME".encode())
+    nickname = conn.recv(256).decode("utf-8")
+    welcome_message="Benvenuto "+nickname
+    print(welcome_message)
+    for (other_conn, _) in clients:
+        other_conn.send(welcome_message.encode())
     while True:
         try:
             data = conn.recv(256).decode("utf-8")
-
-            if data == "exitclient":
-                break
-            else:
-                message = str(addr)+ " : "+ data
-                print(message)
-                for (other_conn,_) in clients:
-                    if conn!=other_conn:
-                        other_conn.send(message.encode())
-                time.sleep(0.1)
-
+            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            message = "[" + timestamp + "]" + nickname + " : " + data
+            print(message)
+            for (other_conn,_) in clients:
+                #if conn!=other_conn:
+                other_conn.send(message.encode())
+            time.sleep(0.1)
         except:
             break
 
-    print("Il client", addr, "si è disconnesso")
+    print("Il client", addr, nickname, "si è disconnesso")
     conn.close()
     clients.remove((conn,addr))
 
