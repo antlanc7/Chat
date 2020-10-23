@@ -1,6 +1,6 @@
 # import all the required  modules 
 import socket 
-import threading 
+import threading
 from tkinter import *
 from tkinter import font 
 from tkinter import ttk 
@@ -10,7 +10,7 @@ from tkinter import ttk
 # from chat import *
   
 PORT = 3125
-SERVER = "192.168.1.189"
+SERVER = "192.168.1.132"
 ADDRESS = (SERVER, PORT) 
 FORMAT = "utf-8"
   
@@ -49,7 +49,7 @@ class GUI:
                        rely = 0.07) 
         # create a Label 
         self.labelName = Label(self.login, 
-                               text = "Name: ", 
+                               text = "Username: ", 
                                font = "Helvetica 12") 
           
         self.labelName.place(relheight = 0.2, 
@@ -72,7 +72,8 @@ class GUI:
         # create a Continue Button  
         # along with action 
         self.go = Button(self.login, 
-                         text = "CONTINUE",  
+                         text = "Entra",
+                         justify = "center",
                          font = "Helvetica 14 bold",  
                          command = lambda: self.goAhead(self.entryName.get())) 
           
@@ -181,7 +182,7 @@ class GUI:
     def sendButton(self, msg): 
         self.textCons.config(state = DISABLED) 
         self.msg=msg 
-        self.entryMsg.delete(0, END) 
+        self.entryMsg.delete(0, END)
         snd= threading.Thread(target = self.sendMessage) 
         snd.start() 
   
@@ -213,7 +214,7 @@ class GUI:
         self.textCons.config(state=DISABLED) 
         while True: 
             message = (f"{self.msg}") 
-            client.send(message.encode(FORMAT))     
+            client.send(message.encode(FORMAT))
             break    
   
 # create a GUI class object 
