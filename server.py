@@ -18,14 +18,14 @@ clients = []
 
 def threaded_client(conn, addr):
     print('Il client ', addr, ' si è connesso')
-    conn.send("NAME".encode())
-    nickname = conn.recv(256).decode("utf-8")
-    welcome_message="Benvenuto "+nickname
-    print(welcome_message)
-    for (other_conn, _) in clients:
-        other_conn.send(welcome_message.encode())
-    while True:
-        try:
+    try:
+        conn.send("NAME".encode())
+        nickname = conn.recv(256).decode("utf-8")
+        welcome_message="Benvenuto "+nickname
+        print(welcome_message)
+        for (other_conn, _) in clients:
+            other_conn.send(welcome_message.encode())
+        while True:
             data = conn.recv(256).decode("utf-8")
             timestamp = datetime.datetime.now().strftime("%H:%M:%S")
             message = "[" + timestamp + "]" + nickname + " : " + data
@@ -34,12 +34,14 @@ def threaded_client(conn, addr):
                 #if conn!=other_conn:
                 other_conn.send(message.encode())
             time.sleep(0.1)
-        except:
-            break
+    except:
+        pass
+    finally:
+        print("Il client", addr, nickname, "si è disconnesso")
+        conn.close()
+        clients.remove((conn,addr))
 
-    print("Il client", addr, nickname, "si è disconnesso")
-    conn.close()
-    clients.remove((conn,addr))
+    
 
 
 while True:
